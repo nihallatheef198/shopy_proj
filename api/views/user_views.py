@@ -1,18 +1,12 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import  IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
-from . import models
-from .serializer import products_serializer, user_serializer, user_serializer_token
+from api.serializer import user_serializer, user_serializer_token
 from django.contrib.auth.models import User
 
 from django.http import JsonResponse
 from django.contrib.auth.hashers import make_password
 
-# Create your views here.
-
-@api_view(['GET'])
-def get_routes(request):
-    return Response('hello')
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -44,17 +38,6 @@ def signup(request):
                 print(str(e))
                 return JsonResponse({'error':'user name already taken :('}, status=400)
 
-@api_view(['GET'])
-def get_products(request):
-    products = models.Products.objects.all()
-    serializer = products_serializer(products, many=True)
-    return Response(serializer.data)
-
-@api_view(['GET'])
-def get_product(request, pk):
-    product = models.Products.objects.get(_id=pk)
-    serializer = products_serializer(product, many=False)
-    return Response(serializer.data)
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
