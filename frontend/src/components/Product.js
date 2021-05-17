@@ -9,20 +9,22 @@ function Product({ product }) {
       <Link to={`/product/${product._id}`}>
         <Card.Img src={product.image} />
       </Link>
+
       <Card.Body>
         <Card.Title as="div">
           <strong>{product.name}</strong>
         </Card.Title>
       </Card.Body>
 
-      <Card.Text>
-        <Rating value={product.rating} text={`${product.num_reviews} reviews`} color={'#f8e825'} />
+      <Card.Text as="div">
+        <Rating
+          value={product.rating}
+          text={`${product.num_reviews} reviews`}
+          color={"#f8e825"}
+        />
       </Card.Text>
 
-      <Card.Text as="h3">
-        ${product.price}
-      </Card.Text>
-
+      <Card.Text as="h3">${product.price}</Card.Text>
     </Card>
   );
 }
